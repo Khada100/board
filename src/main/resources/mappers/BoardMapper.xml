@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.khada.hund.board.model.dao.BoardMapper">
+
+    <resultMap id="BoardMap" type="com.khada.hund.board.model.dto.BoardDTO">
+        <id property="postCode" column="post_code"/>
+        <result property="title" column="title"/>
+        <result property="writer" column="writer"/>
+        <result property="detail" column="detail"/>
+        <result property="recommend" column="recommend"/>
+    </resultMap>
+
+    <insert id="insertBoard" parameterType="com.khada.hund.board.model.dto.BoardDTO">
+        INSERT INTO POST
+            (
+              TITLE
+            , WRITER
+            , DETAIL
+            )
+        VALUES
+            (
+              #{title}
+            , #{writer}
+            , #{detail}
+            )
+    </insert>
+
+    <select id="selectAllBoard" resultMap="BoardMap">
+        SELECT
+              *
+        FROM
+              POST
+        ORDER BY
+              WRITE_DATE_TIME DESC
+    </select>
+
+    <select id="selectBoardPostCode" resultMap="BoardMap">
+        SELECT
+              *
+        FROM
+              POST
+        WHERE
+              POST_CODE = #{postCode}
+    </select>
+
+    <update id="updateRecommend">
+        UPDATE POST
+        SET RECOMMEND = RECOMMEND + 1
+        WHERE POST_CODE = #{postCode};
+    </update>
+
+    <update id="editBoard">
+        UPDATE POST
+        SET
+              DETAIL = #{detail}
+            , TITLE = #{title}
+        WHERE
+              POST_CODE = #{postCode}
+    </update>
+
+    <delete id="deleteBoard">
+        DELETE FROM POST
+        WHERE
+            POST_CODE = #{postCode}
+    </delete>
+</mapper>

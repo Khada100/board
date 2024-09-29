@@ -1,0 +1,14 @@
+POST http://localhost:8001/board/write
+Content-Type: application/json
+Accept: */*
+Access-Control-Allow-Origin: *
+
+{
+  "title": "테스트 게시글 작성",
+  "writer": "admin",
+  "detail": "테스트",
+  "notice": "N",
+  "writeDateTime": "2024-09-28 18:26:54",
+  "postPassword": "1234",
+  "recommend": 0
+}

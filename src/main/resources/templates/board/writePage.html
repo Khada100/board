@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" th:href="@{/css/write.css}">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 작성</title>
+</head>
+<body>
+<div class="container">
+    <h1>게시글 작성</h1>
+        <div class="form-group">
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="detail">내용:</label>
+            <textarea id="detail" name="detail" rows="10" required></textarea>
+        </div>
+        <div class="button-group">
+            <button type="submit" class="submit-button" onclick="writeComplete()">작성하기</button>
+            <button type="button" class="cancel-button" onclick="location.href='/'">취소</button>
+        </div>
+</div>
+    <script>
+        function writeComplete(){
+            const titleValue = document.getElementById("title").value;
+            const detailValue = document.getElementById("detail").value;
+            const formData = new FormData;
+
+            formData.append("title", titleValue);
+            formData.append("detail", detailValue);
+            formData.append("writer", 'admin');
+
+            fetch('/board/write',{
+                method: 'POST',
+                body: formData
+            }).then(response =>{
+                console.log("response : " , response)
+                if (response.ok){
+                    window.location.href = "/";
+                }else{
+                    console.error('게시글 작성 실패')
+                }
+            }).catch(error => {
+                console.error('오류가 발생하였습니다 : ' , error);
+            })
+
+        }
+    </script>
+</body>
+</html>
