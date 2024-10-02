@@ -1,4 +1,4 @@
-package com.khada.hund.comment.dto;
+package com.khada.hund.comment.model.dto;
 
 
 import lombok.*;
