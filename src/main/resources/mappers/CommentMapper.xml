@@ -4,4 +4,28 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.khada.hund.comment.model.dao.CommentMapper">
 
+	<resultMap id="CommentMap" type="com.khada.hund.comment.model.dto.CommentDTO">
+		<id property = "commentCode" column="comment_code" />
+		<result property = "commentTime" column="comment_time" />
+		<result property = "commentDetail" column="comment_detail" />
+		<result property = "commentLike" column="comment_Like" />
+		<result property = "commentId" column="comment_id" />
+		<result property = "commentPostCode" column="comment_post_code" />
+	</resultMap>
+	
+	<insert id="insertComment" parameterType="com.khada.hund.comment.model.dto.CommentDTO">
+		INSERT INTO POST_COMMENT
+			(
+			  COMMENT_DETAIL
+			, COMMENT_ID
+			, COMMENT_POST_CODE
+			)
+		VALUES
+			(
+			  #{commentDetail}
+			, #{commentId}
+			, #{commentPostCode}
+			)
+	</insert>
+
 </mapper>

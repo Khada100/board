@@ -14,6 +14,5 @@ public class CommentDTO {
     private String commentDetail;
     private Long commentLike;
     private String commentId;
-    private String commentPwd;
     private Long commentPostCode;
 }
