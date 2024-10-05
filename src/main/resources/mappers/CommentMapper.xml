@@ -28,4 +28,25 @@
 			)
 	</insert>
 
+	<select id="selectCommentPostCode" resultMap="CommentMap">
+		SELECT
+			*
+		FROM
+			POST_COMMENT
+		WHERE
+			COMMENT_POST_CODE = #{postCode}
+	</select>
+
+	<update id="editComment">
+		UPDATE POST_COMMENT
+		SET COMMENT_DETAIL = #{commentDetail}
+		WHERE COMMENT_CODE = #{commentCode};
+	</update>
+
+	<delete id="deleteComment">
+		DELETE FROM POST_COMMENT
+		WHERE
+		COMMENT_CODE = #{commentCode}
+	</delete>
+
 </mapper>

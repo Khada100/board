@@ -32,5 +32,25 @@ public class CommentController {
 
     }
 
+    @PostMapping("/edit")
+    public String editComment(@ModelAttribute CommentDTO comment){
+
+        log.info("comment : " + comment);
+
+        service.editComment(comment);
+
+        return "redirect:/";
+    }
+
+    @PostMapping("/delete")
+    public String deleteComment(@ModelAttribute CommentDTO comment){
+
+        log.info("comment : " + comment);
+
+        service.deleteComment(comment);
+
+        return "redirect:/";
+    }
+
 
 }

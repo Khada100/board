@@ -3,6 +3,8 @@ package com.khada.hund.board.controller;
 
 import com.khada.hund.board.model.dto.BoardDTO;
 import com.khada.hund.board.model.service.BoardService;
+import com.khada.hund.comment.model.dto.CommentDTO;
+import com.khada.hund.comment.model.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +19,11 @@ public class BoardController {
 
     private final BoardService service;
 
-    public BoardController(BoardService service) {
+    private final CommentService commentService;
+
+    public BoardController(BoardService service, CommentService commentService) {
         this.service = service;
+        this.commentService = commentService;
     }
 
     @GetMapping("/write")
@@ -47,6 +52,11 @@ public class BoardController {
 
         service.updateRecommend(postCode);
 
+        List<CommentDTO> commentList = commentService.selectCommentPostCode(postCode);
+
+        log.info("commentList : " + commentList);
+
+        mv.addObject("commentList" , commentList);
         mv.addObject("board", board);
 
         mv.setViewName("board/detail");

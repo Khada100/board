@@ -20,14 +20,16 @@
     <div class="comment-section">
         <h2>댓글 달기</h2>
         <textarea id="comment" rows="4" placeholder="댓글을 입력하세요..." required></textarea>
-        <button class="submit-comment" onclick="submitComment()">댓글 작성</button>
+        <button class="submit-comment" onclick="insertComment()">댓글 작성</button>
     </div>
     <div class="comments-list">
         <h2>댓글 목록</h2>
-        <ul>
-            <li>첫 번째 댓글 내용입니다.</li>
-            <li>두 번째 댓글 내용입니다.</li>
-            <li>세 번째 댓글 내용입니다.</li>
+        <ul th:each="comment : ${commentList}">
+            <li>
+                <span th:text="${comment?.getCommentDetail()}"></span>
+                <button onclick="editComment('${comment.id}', '${comment.getCommentDetail()}')">수정</button>
+                <button onclick="deleteComment('${comment.id}')">삭제</button>
+            </li>
         </ul>
     </div>
     <div class="button-container">
@@ -40,19 +42,83 @@
 <script>
     function deleteBoard(){
         const postCodeValue = document.getElementById("postCode").value;
-        // 삭제하시겠습니까? 추가
-        fetch('/board/delete/' + postCodeValue,{
-            method: 'POST'
-        }).then(response =>{
-            console.log("response : " , response)
+        if(confirm("게시글을 삭제하시겠습니까?")) {
+            fetch('/board/delete/' + postCodeValue, {
+                method: 'POST'
+            }).then(response => {
+                if (response.ok){
+                    window.location.href = "/";
+                } else {
+                    console.error('게시글 삭제 실패');
+                }
+            }).catch(error => {
+                console.error('오류가 발생하였습니다 : ', error);
+            });
+        }
+    }
+
+    function insertComment(){
+        const postCodeValue = document.getElementById("postCode").value;
+        const idValue = 'admin'; // 세션값으로 바꿀 것
+        const postDetailValue = document.getElementById("comment").value;
+        const formData = new FormData();
+
+        formData.append("commentPostCode", postCodeValue);
+        formData.append("commentId", idValue);
+        formData.append("commentDetail", postDetailValue);
+
+        fetch('/comment/insert', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
             if (response.ok){
-                window.location.href = "/";
-            }else{
-                console.error('게시글 삭제 실패')
+                window.location.href = "/board/" + postCodeValue;
+            } else {
+                console.error('댓글 작성 실패');
             }
         }).catch(error => {
-            console.error('오류가 발생하였습니다 : ' , error);
-        })
+            console.error('오류가 발생하였습니다 : ', error);
+        });
+    }
+
+    function editComment(commentId, currentDetail) {
+        const newDetail = prompt("댓글을 수정하세요:", currentDetail);
+        const formData = new FormData;
+
+        formData.append("commentDetail", currentDetail);
+        formData.append("commentId",commentId);
+
+            fetch('/comment/edit', {
+                method: 'POST',
+                body: formData,
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.error('댓글 수정 실패');
+                }
+            }).catch(error => {
+                console.error('오류가 발생하였습니다 : ', error);
+            });
+    }
+
+    function deleteComment(commentId) {
+        const formData = new FormData;
+        formData.append("commentId", commentId);
+        if(confirm("댓글을 삭제하시겠습니까?")) {
+            fetch('/comment/delete', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    console.error('댓글 삭제 실패');
+                }
+            }).catch(error => {
+                console.error('오류가 발생하였습니다 : ', error);
+            });
+        }
     }
 </script>
 </body>

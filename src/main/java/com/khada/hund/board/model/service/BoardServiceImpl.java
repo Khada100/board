@@ -49,4 +49,6 @@ public class BoardServiceImpl implements BoardService{
     public void deleteBoard(String postCode) {
         mapper.deleteBoard(postCode);
     }
+
+
 }
