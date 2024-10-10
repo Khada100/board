@@ -26,6 +26,19 @@ public class BoardController {
         this.commentService = commentService;
     }
 
+
+    @GetMapping("/main")
+    public ModelAndView mainLocation(ModelAndView mv) {
+        List<BoardDTO> boardList = service.selectAllBoard();
+
+        mv.addObject("boardList", boardList);
+
+        log.info("boardList : " + boardList);
+
+        mv.setViewName("board/boardList");
+
+        return mv;
+    }
     @GetMapping("/write")
     public ModelAndView postingForum(ModelAndView mv){
 

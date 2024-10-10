@@ -1,37 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" th:href="@{../css/main.css}">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>게시판</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 화면</title>
+    <link rel="stylesheet" th:href="@{../css/main.css}">
 </head>
 <body>
 <div class="container">
-    <h1>게시판</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>선택</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-            <th>조회수</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="board : ${boardList}">
-            <td><input type="checkbox" th:value="${board.getPostCode()}"></td>
-            <td><a th:href="@{/board/{postCode}(postCode=${board.getPostCode()})}" th:text="${board.getTitle()}"></a></td>
-            <td th:text="${board.getWriter()}"></td>
-            <td th:text="${board.getWriteDateTime()}"></td>
-            <td th:text="${board.getRecommend()}"></td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="button-container">
-        <button class="register-button" id="register_btn">등록</button>
-    </div>
+    <h2>로그인</h2>
+    <form>
+        <div class="input-group">
+            <label for="userId">사용자 이름</label>
+            <input type="text" id="userId" name="username" required>
+        </div>
+        <div class="input-group">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button onclick="login()">로그인</button>
+    </form>
 </div>
-    <script th:src="@{../js/event.js}"></script>
 </body>
+<script>
+    function login(){
+        const userId = document.getElementById("userId").value;
+        const pwd = document.getElementById("password").value;
+
+        const formData = new FormData();
+
+        formData.append("id" , userId);
+        formData.append("pwd", pwd);
+
+        fetch('/login', {
+            method: 'POST',
+            body : formData
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = "/board/main";
+            } else {
+                return response.text();
+            }
+        }).then(errorMessage => {
+            if (errorMessage) {
+                alert("로그인 실패");
+            }
+        }).catch(error => {
+            console.error('오류가 발생하였습니다 : ', error);
+        });
+    }
+</script>
 </html>
