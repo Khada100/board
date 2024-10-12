@@ -7,6 +7,7 @@
 </head>
 <body>
 <div class="container">
+    <input type="hidden" th:value="${userId}" id="userId">
     <h1>게시글 작성</h1>
         <div class="form-group">
             <label for="title">제목:</label>
@@ -25,11 +26,12 @@
         function writeComplete(){
             const titleValue = document.getElementById("title").value;
             const detailValue = document.getElementById("detail").value;
+            const writer = document.getElementById("userId").value;
             const formData = new FormData;
 
             formData.append("title", titleValue);
             formData.append("detail", detailValue);
-            formData.append("writer", 'admin');
+            formData.append("writer", writer);
 
             fetch('/board/write',{
                 method: 'POST',

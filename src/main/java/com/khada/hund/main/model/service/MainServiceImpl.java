@@ -35,4 +35,9 @@ public class MainServiceImpl implements MainService{
         log.info("loginUser123: "  + loginUser);
         return isLogin;
     }
+
+    @Override
+    public void insertUser(UserDTO user) {
+        mapper.insertUser(user);
+    }
 }

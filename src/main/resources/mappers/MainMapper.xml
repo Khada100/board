@@ -21,4 +21,23 @@
             ID = #{id}
         AND PWD = #{pwd}
     </select>
+
+    <insert id="insertUser" parameterType="com.khada.hund.main.model.dto.UserDTO">
+        INSERT INTO USERS
+            (
+              ID
+            , NAME
+            , EMAIL
+            , PHONE
+            , PWD
+            )
+        VALUES
+            (
+              #{id}
+            , #{name}
+            , #{email}
+            , #{phone}
+            , #{pwd}
+            )
+    </insert>
 </mapper>

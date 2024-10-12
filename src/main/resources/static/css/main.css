@@ -50,4 +50,17 @@ button {
 button:hover {
     background-color: #4cae4c;
 }
+.signup-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.signup-link a {
+    color: #5cb85c;
+    text-decoration: none;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
 

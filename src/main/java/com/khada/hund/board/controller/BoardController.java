@@ -5,6 +5,7 @@ import com.khada.hund.board.model.dto.BoardDTO;
 import com.khada.hund.board.model.service.BoardService;
 import com.khada.hund.comment.model.dto.CommentDTO;
 import com.khada.hund.comment.model.service.CommentService;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +29,12 @@ public class BoardController {
 
 
     @GetMapping("/main")
-    public ModelAndView mainLocation(ModelAndView mv) {
+    public ModelAndView mainLocation(ModelAndView mv, HttpSession userSession) {
         List<BoardDTO> boardList = service.selectAllBoard();
 
         mv.addObject("boardList", boardList);
+
+        mv.addObject("userId", userSession.getAttribute("userId"));
 
         log.info("boardList : " + boardList);
 
@@ -40,7 +43,9 @@ public class BoardController {
         return mv;
     }
     @GetMapping("/write")
-    public ModelAndView postingForum(ModelAndView mv){
+    public ModelAndView postingForum(ModelAndView mv, HttpSession userSession){
+
+        mv.addObject("userId", userSession.getAttribute("userId"));
 
         mv.setViewName("/board/writePage");
         return mv;
@@ -57,7 +62,7 @@ public class BoardController {
     }
 
     @GetMapping("/{postCode}")
-    public ModelAndView boardDetail(@PathVariable String postCode, ModelAndView mv){
+    public ModelAndView boardDetail(@PathVariable String postCode, ModelAndView mv, HttpSession userSession){
 
         log.info("postCode : " + postCode);
 
@@ -69,6 +74,8 @@ public class BoardController {
 
         log.info("commentList : " + commentList);
 
+        mv.addObject("userId", userSession.getAttribute("userId"));
+
         mv.addObject("commentList" , commentList);
         mv.addObject("board", board);
 
@@ -78,11 +85,13 @@ public class BoardController {
     }
 
     @GetMapping("/edit/{postCode}")
-    public ModelAndView boardEdit(@PathVariable String postCode, ModelAndView mv){
+    public ModelAndView boardEdit(@PathVariable String postCode, ModelAndView mv, HttpSession userSession){
 
         BoardDTO board = service.selectBoardPostCode(postCode);
 
         mv.addObject("board", board);
+
+        mv.addObject("userId", userSession.getAttribute("userId"));
 
         log.info("board : " + board);
 
