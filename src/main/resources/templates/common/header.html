@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <title>상단바</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    header {
+        background-color: #333; /* 상단바 배경색 */
+        color: white;
+        padding: 10px 20px; /* 상단바 여백 */
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between; /* 양쪽 끝으로 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+    }
+
+    .auth-buttons {
+        display: flex;
+        gap: 15px; /* 버튼 간격 */
+    }
+
+    .auth-buttons a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .auth-buttons a:hover {
+        text-decoration: underline; /* 호버 시 밑줄 */
+    }
+
+    .navbar-links {
+        display: flex;
+        gap: 20px; /* 링크 간격 */
+    }
+
+    .navbar-links a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .navbar-links a:hover {
+        text-decoration: underline; /* 호버 시 밑줄 */
+    }
+
+</style>
+<body>
+<header>
+    <div th:fragment="navbar" class="navbar">
+        <div class="navbar-links">
+            <a th:href="@{/}">메인페이지</a>
+            <a th:href="@{/mypage}">마이페이지</a>
+        </div>
+        <div class="auth-buttons">
+            <a th:href="@{/login}">로그인</a>
+            <a th:href="@{/logout}">로그아웃</a>
+        </div>
+    </div>
+</header>
+</body>
+</html>

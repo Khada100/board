@@ -42,6 +42,14 @@ public class BoardController {
 
         return mv;
     }
+
+    @GetMapping("/main2")
+    public ModelAndView main2Location(ModelAndView mv) {
+
+        mv.setViewName("board/boardList2");
+
+        return mv;
+    }
     @GetMapping("/write")
     public ModelAndView postingForum(ModelAndView mv, HttpSession userSession){
 

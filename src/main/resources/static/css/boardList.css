@@ -1,22 +1,24 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #e9ecef;
     margin: 0;
-    padding: 20px;
+    padding: 40px;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: auto;
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 h1 {
     text-align: center;
-    color: #333;
+    color: #343a40;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
 }
 
 table {
@@ -25,22 +27,25 @@ table {
 }
 
 th, td {
-    padding: 12px;
+    padding: 15px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 2px solid #dee2e6;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #495057;
 }
 
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f3f5;
 }
 
 a {
-    color: #007BFF;
+    color: #007bff;
     text-decoration: none;
+    font-weight: 500;
 }
 
 a:hover {
@@ -49,21 +54,22 @@ a:hover {
 
 .button-container {
     display: flex;
-    justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
-    margin-top: 20px;
+    justify-content: flex-end;
+    margin-top: 30px;
 }
 
 .register-button {
-    padding: 10px 20px;
-    background-color: #007BFF;
+    padding: 12px 25px;
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px; /* 버튼 텍스트 크기 */
-    transition: background-color 0.3s; /* 호버 시 배경색 변화 */
+    font-size: 18px;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .register-button:hover {
-    background-color: #0056b3;
+    background-color: #218838;
+    transform: translateY(-2px);
 }

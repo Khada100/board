@@ -27,12 +27,12 @@ public class MainController {
     @GetMapping(value = {"/", "/main"})
     public ModelAndView mainLocation(ModelAndView mv, @ModelAttribute("fail") String fail, HttpSession session){
 
-        if (session.getAttribute("userId") != null ) {
-
-            mv.setViewName("redirect:/board/main");
-
-            return mv;
-        }
+//        if (session.getAttribute("userId") != null ) {
+//
+//            mv.setViewName("redirect:/board/main");
+//
+//            return mv;
+//        }
 
         if(fail != null && !fail.isEmpty()){
             mv.addObject("fail" , fail);
